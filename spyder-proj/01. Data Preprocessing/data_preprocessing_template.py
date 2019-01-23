@@ -40,3 +40,24 @@ from sklearn.impute import SimpleImputer
 imputer = SimpleImputer(missing_values= np.NaN,strategy='mean')
 imputer = imputer.fit(X[:,1:3])
 X[:,1:3] = imputer.transform(X[:,1:3])
+
+
+#Encoding the categorical data
+from sklearn.preprocessing import LabelEncoder
+
+labelencoder_X = LabelEncoder()
+X[:,0] = labelencoder_X.fit_transform(X[:,0])
+
+#we are dummy encoding as the machine learning algorithms will be
+#confused with the values like Spain > Germany > France
+from sklearn.preprocessing import OneHotEncoder
+
+onehotencoder = OneHotEncoder(categorical_features=[0])
+X = onehotencoder.fit_transform(X).toarray()
+
+#encoding the purchase column as it is dependent 
+labelencoder_y = LabelEncoder()
+y = labelencoder_y.fit_transform(y)
+
+
+
