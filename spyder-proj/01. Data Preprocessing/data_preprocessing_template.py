@@ -31,3 +31,12 @@ dataset = pd.read_csv(working_dir)
 
 X = dataset.iloc[:,:-1].values
 y = dataset.iloc[:,3].values
+
+#we are dealing with the missing data
+#for mean we are importing preprocessing from
+#sklearn and using the Imputer Class
+from sklearn.impute import SimpleImputer
+
+imputer = SimpleImputer(missing_values= np.NaN,strategy='mean')
+imputer = imputer.fit(X[:,1:3])
+X[:,1:3] = imputer.transform(X[:,1:3])
