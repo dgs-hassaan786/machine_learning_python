@@ -44,6 +44,7 @@ X[:,1:3] = imputer.transform(X[:,1:3])
 
 #Encoding the categorical data
 from sklearn.preprocessing import LabelEncoder
+#from sklearn.compose import ColumnTransformer
 
 labelencoder_X = LabelEncoder()
 X[:,0] = labelencoder_X.fit_transform(X[:,0])
@@ -52,12 +53,17 @@ X[:,0] = labelencoder_X.fit_transform(X[:,0])
 #confused with the values like Spain > Germany > France
 from sklearn.preprocessing import OneHotEncoder
 
+
+
 onehotencoder = OneHotEncoder(categorical_features=[0])
 X = onehotencoder.fit_transform(X).toarray()
 
-#encoding the purchase column as it is dependent 
+
+
 labelencoder_y = LabelEncoder()
 y = labelencoder_y.fit_transform(y)
 
 
-
+#Splitting the dataset into the Training set and Test set
+from sklearn.model_selection import train_test_split
+X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2, random_state= 0)
